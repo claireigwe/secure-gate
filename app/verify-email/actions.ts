@@ -17,7 +17,6 @@ export async function resendVerificationAction() {
 
     const email = session.user.email;
 
-    // Rate Limiting: 5 attempts per IP in 10 minutes
     const ip = headers().get('x-forwarded-for') || '127.0.0.1';
     const limitCheck = await rateLimit(`resend-verification:${ip}`);
     if (!limitCheck.success) {
@@ -42,9 +41,10 @@ export async function resendVerificationAction() {
     }
 
     const verificationToken = await generateVerificationToken(email);
-    await sendVerificationEmail(verificationToken.identifier, verificationToken.token);
+    const confirmLink = `${process.env.NEXTAUTH_URL}/verify-email/${verificationToken.token}`;
+    console.log(`[DEV] Verification link for ${email}: ${confirmLink}`);
 
-    console.log(`[DEVELOPMENT] Verification token resent for ${email}: ${verificationToken.token}`);
+    await sendVerificationEmail(verificationToken.identifier, verificationToken.token);
 
     return { ok: true };
   } catch (error) {

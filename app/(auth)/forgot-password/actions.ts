@@ -21,32 +21,33 @@ export async function forgotPasswordAction(data: unknown) {
     };
   }
 
-  // Rate Limiting: 5 attempts per IP in 10 minutes
-  const ip = headers().get('x-forwarded-for') || '127.0.0.1';
-  const limitCheck = await rateLimit(`forgot-password:${ip}`);
-  if (!limitCheck.success) {
-    return {
-      ok: false,
-      error: {
-        code: 'RATE_LIMIT_EXCEEDED',
-        message: 'Too many requests. Please try again later.',
-      },
-    };
-  }
-
   const { email } = parsed.data;
 
   try {
+    const ip = headers().get('x-forwarded-for') || '127.0.0.1';
+    const limitCheck = await rateLimit(`forgot-password:${ip}`);
+    if (!limitCheck.success) {
+      return {
+        ok: false,
+        error: {
+          code: 'RATE_LIMIT_EXCEEDED',
+          message: 'Too many requests. Please try again later.',
+        },
+      };
+    }
+
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
     if (user) {
       const passwordResetToken = await generatePasswordResetToken(email);
+      const resetLink = `${process.env.NEXTAUTH_URL}/reset-password?token=${passwordResetToken.token}`;
+      console.log(`[DEV] Password reset link for ${email}: ${resetLink}`);
+
       await sendPasswordResetEmail(passwordResetToken.email, passwordResetToken.token);
     }
 
-    // Always return success even if email doesn't exist (prevent enumeration)
     return { ok: true };
   } catch (error) {
     console.error('Forgot Password Action Error:', error);

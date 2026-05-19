@@ -22,28 +22,26 @@ export async function signupAction(data: unknown) {
     };
   }
 
-  // Rate Limiting: 5 attempts per IP in 10 minutes
-  const ip = headers().get('x-forwarded-for') || '127.0.0.1';
-  const limitCheck = await rateLimit(`signup:${ip}`);
-  if (!limitCheck.success) {
-    return {
-      ok: false,
-      error: {
-        code: 'RATE_LIMIT_EXCEEDED',
-        message: 'Too many requests. Please try again later.',
-      },
-    };
-  }
-
   const { email, password, name } = parsed.data;
 
   try {
+    const ip = headers().get('x-forwarded-for') || '127.0.0.1';
+    const limitCheck = await rateLimit(`signup:${ip}`);
+    if (!limitCheck.success) {
+      return {
+        ok: false,
+        error: {
+          code: 'RATE_LIMIT_EXCEEDED',
+          message: 'Too many requests. Please try again later.',
+        },
+      };
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUser) {
-      // Return a generic error to prevent email enumeration
       return {
         ok: false,
         error: {
@@ -64,6 +62,9 @@ export async function signupAction(data: unknown) {
     });
 
     const verificationToken = await generateVerificationToken(email);
+    const confirmLink = `${process.env.NEXTAUTH_URL}/verify-email/${verificationToken.token}`;
+    console.log(`[DEV] Verification link for ${email}: ${confirmLink}`);
+
     await sendVerificationEmail(verificationToken.identifier, verificationToken.token);
 
     return {

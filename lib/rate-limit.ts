@@ -4,12 +4,7 @@ type RateLimitRecord = {
 
 const rateLimitMap = new Map<string, RateLimitRecord>();
 
-// Clean up old entries periodically to prevent memory leaks in development
-const globalObj = global as any;
-if (globalObj.rateLimitInterval) {
-  clearInterval(globalObj.rateLimitInterval);
-}
-globalObj.rateLimitInterval = setInterval(() => {
+function cleanup() {
   const tenMinutesAgo = Date.now() - 10 * 60 * 1000;
   for (const [key, record] of Array.from(rateLimitMap.entries())) {
     const validTimestamps = record.timestamps.filter(t => t > tenMinutesAgo);
@@ -19,12 +14,14 @@ globalObj.rateLimitInterval = setInterval(() => {
       record.timestamps = validTimestamps;
     }
   }
-}, 60 * 1000);
+}
 
-/**
- * Rates limits requests based on an identifier (e.g. IP or email)
- * Policy: maximum 5 requests per identifier within 10 minutes
- */
+try {
+  setInterval(cleanup, 60 * 1000);
+} catch {
+  // setInterval may not be available in some serverless environments
+}
+
 export async function rateLimit(identifier: string) {
   const now = Date.now();
   const tenMinutesAgo = now - 10 * 60 * 1000;
@@ -35,7 +32,6 @@ export async function rateLimit(identifier: string) {
     rateLimitMap.set(identifier, record);
   }
 
-  // Filter timestamps to last 10 minutes
   record.timestamps = record.timestamps.filter(t => t > tenMinutesAgo);
 
   if (record.timestamps.length >= 5) {
