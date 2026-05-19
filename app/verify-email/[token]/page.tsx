@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import styles from '../../(auth)/auth.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default async function VerifyEmailPage({
   params,
 }: {

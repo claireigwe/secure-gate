@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { VerifyEmailClient } from '@/components/auth/VerifyEmailClient';
 import styles from '../(auth)/auth.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default async function VerifyPage() {
   const session = await getServerSession(authOptions);
 
