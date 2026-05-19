@@ -12,6 +12,7 @@ export function SignupForm() {
   const [error, setError] = React.useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = React.useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
   const [password, setPassword] = React.useState('');
 
   const getPasswordStrength = (pass: string) => {
@@ -62,6 +63,8 @@ export function SignupForm() {
       const result = await signupAction(data);
       if (!result.ok) {
         setError(result.error?.message || 'Something went wrong');
+      } else {
+        setIsSuccess(true);
       }
     } catch (err) {
       setError('An unexpected error occurred');
@@ -69,6 +72,24 @@ export function SignupForm() {
       setIsLoading(false);
     }
   };
+
+  if (isSuccess) {
+    return (
+      <div className={styles.root}>
+        <div className={styles.success}>
+          <h2 className={styles.successTitle}>Account created successfully!</h2>
+          <p className={styles.successText}>
+            We sent a confirmation email. Please check your inbox and click the link to verify your account.
+          </p>
+        </div>
+        <div className={styles.footer}>
+          <Link href="/login" className={styles.link}>
+            Go to Log in
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form className={styles.root} onSubmit={handleSubmit} noValidate>
