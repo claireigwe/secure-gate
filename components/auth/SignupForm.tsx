@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './SignupForm.module.css';
+import pageStyles from '@/app/(auth)/auth.module.css';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { signupAction } from '@/app/(auth)/signup/actions';
@@ -92,7 +93,12 @@ export function SignupForm() {
   }
 
   return (
-    <form className={styles.root} onSubmit={handleSubmit} noValidate>
+    <>
+      <div className={pageStyles.header}>
+        <h1 className={pageStyles.title}>Create an account</h1>
+        <p className={pageStyles.subtitle}>Sign up to access the dashboard</p>
+      </div>
+      <form className={styles.root} onSubmit={handleSubmit} noValidate>
       <Input
         name="name"
         type="text"
@@ -156,5 +162,6 @@ export function SignupForm() {
         </Link>
       </div>
     </form>
+    </>
   );
 }
