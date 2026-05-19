@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.error {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-error-light, #fee2e2);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm, 4px);
+}

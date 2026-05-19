@@ -1,0 +1,21 @@
+.header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--headline-small-font-family);
+  font-weight: var(--headline-small-font-weight);
+  font-size: var(--headline-small-font-size);
+  letter-spacing: var(--headline-small-letter-spacing);
+  line-height: var(--headline-small-line-height);
+  color: var(--color-on-surface);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-family: var(--body-medium-font-family);
+  font-size: var(--body-medium-font-size);
+  color: var(--color-on-surface-variant);
+  line-height: var(--body-medium-line-height);
+}

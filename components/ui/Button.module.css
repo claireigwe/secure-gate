@@ -1,0 +1,37 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-input, 12px);
+  font-family: var(--label-large-font-family);
+  font-weight: var(--label-large-font-weight);
+  font-size: var(--label-large-font-size);
+  height: 48px;
+  padding: 0 24px;
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.root:hover:not(:disabled) {
+  background-color: var(--color-on-primary-container);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.root:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.root:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.root:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-primary-container);
+}
