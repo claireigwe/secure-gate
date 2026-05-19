@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './ForgotPasswordForm.module.css';
+import headerStyles from '@/app/(auth)/auth.module.css';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { forgotPasswordAction } from '@/app/(auth)/forgot-password/actions';
@@ -62,24 +63,30 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <form className={styles.root} onSubmit={handleSubmit} noValidate>
-      <Input
-        name="email"
-        type="email"
-        label="Email address"
-        placeholder="Enter your email"
-        error={fieldErrors.email}
-        required
-      />
-      {error && <div className={styles.error}>{error}</div>}
-      <Button type="submit" isLoading={isLoading}>
-        Reset Password
-      </Button>
-      <div className={styles.footer}>
-        <Link href="/login" className={styles.link}>
-          Back to Log in
-        </Link>
+    <>
+      <div className={headerStyles.header}>
+        <h1 className={headerStyles.title}>Reset password</h1>
+        <p className={headerStyles.subtitle}>Enter your email to receive a reset link</p>
       </div>
-    </form>
+      <form className={styles.root} onSubmit={handleSubmit} noValidate>
+        <Input
+          name="email"
+          type="email"
+          label="Email address"
+          placeholder="Enter your email"
+          error={fieldErrors.email}
+          required
+        />
+        {error && <div className={styles.error}>{error}</div>}
+        <Button type="submit" isLoading={isLoading}>
+          Reset Password
+        </Button>
+        <div className={styles.footer}>
+          <Link href="/login" className={styles.link}>
+            Back to Log in
+          </Link>
+        </div>
+      </form>
+    </>
   );
 }
