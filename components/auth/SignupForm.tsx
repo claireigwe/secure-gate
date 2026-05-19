@@ -74,94 +74,95 @@ export function SignupForm() {
     }
   };
 
-  if (isSuccess) {
-    return (
-      <div className={styles.root}>
-        <div className={styles.success}>
-          <h2 className={styles.successTitle}>Account created successfully!</h2>
-          <p className={styles.successText}>
-            We sent a confirmation email. Please check your inbox and click the link to verify your account.
-          </p>
-        </div>
-        <div className={styles.footer}>
-          <Link href="/login" className={styles.link}>
-            Go to Log in
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <div className={pageStyles.header}>
-        <h1 className={pageStyles.title}>Create an account</h1>
-        <p className={pageStyles.subtitle}>Sign up to access the dashboard</p>
-      </div>
-      <form className={styles.root} onSubmit={handleSubmit} noValidate>
-      <Input
-        name="name"
-        type="text"
-        label="Full Name"
-        placeholder="John Doe"
-        error={fieldErrors.name}
-        required
-      />
-      <Input
-        name="email"
-        type="email"
-        label="Email address"
-        placeholder="Enter your email"
-        error={fieldErrors.email}
-        required
-      />
-      <div className={styles.passwordFieldContainer}>
-        <Input
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="Create a password"
-          error={fieldErrors.password}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        {password && (
-          <div className={styles.strengthContainer}>
-            <div className={styles.strengthLabel}>
-              <span>Password strength</span>
-              <span className={styles.strengthValue} style={{ color: strength.color }}>
-                {strength.label}
-              </span>
-            </div>
-            <div className={styles.strengthBars}>
-              <div 
-                className={styles.strengthBar} 
-                style={{ backgroundColor: strength.score >= 1 ? strength.color : undefined }}
-              />
-              <div 
-                className={styles.strengthBar} 
-                style={{ backgroundColor: strength.score >= 2 ? strength.color : undefined }}
-              />
-              <div 
-                className={styles.strengthBar} 
-                style={{ backgroundColor: strength.score >= 3 ? strength.color : undefined }}
-              />
-            </div>
+    <div>
+      {!isSuccess && (
+        <div className={pageStyles.header}>
+          <h1 className={pageStyles.title}>Create an account</h1>
+          <p className={pageStyles.subtitle}>Sign up to access the dashboard</p>
+        </div>
+      )}
+
+      {isSuccess ? (
+        <div className={styles.root}>
+          <div className={styles.success}>
+            <h2 className={styles.successTitle}>Account created successfully!</h2>
+            <p className={styles.successText}>
+              We sent a confirmation email. Please check your inbox and click the link to verify your account.
+            </p>
           </div>
-        )}
-      </div>
-      {error && <div className={styles.error}>{error}</div>}
-      <Button type="submit" isLoading={isLoading}>
-        Sign Up
-      </Button>
-      <div className={styles.footer}>
-        Already have an account?{' '}
-        <Link href="/login" className={styles.link}>
-          Log in
-        </Link>
-      </div>
-    </form>
-    </>
+          <div className={styles.footer}>
+            <Link href="/login" className={styles.link}>
+              Go to Log in
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <form className={styles.root} onSubmit={handleSubmit} noValidate>
+          <Input
+            name="name"
+            type="text"
+            label="Full Name"
+            placeholder="John Doe"
+            error={fieldErrors.name}
+            required
+          />
+          <Input
+            name="email"
+            type="email"
+            label="Email address"
+            placeholder="Enter your email"
+            error={fieldErrors.email}
+            required
+          />
+          <div className={styles.passwordFieldContainer}>
+            <Input
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Create a password"
+              error={fieldErrors.password}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {password && (
+              <div className={styles.strengthContainer}>
+                <div className={styles.strengthLabel}>
+                  <span>Password strength</span>
+                  <span className={styles.strengthValue} style={{ color: strength.color }}>
+                    {strength.label}
+                  </span>
+                </div>
+                <div className={styles.strengthBars}>
+                  <div 
+                    className={styles.strengthBar} 
+                    style={{ backgroundColor: strength.score >= 1 ? strength.color : undefined }}
+                  />
+                  <div 
+                    className={styles.strengthBar} 
+                    style={{ backgroundColor: strength.score >= 2 ? strength.color : undefined }}
+                  />
+                  <div 
+                    className={styles.strengthBar} 
+                    style={{ backgroundColor: strength.score >= 3 ? strength.color : undefined }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          {error && <div className={styles.error}>{error}</div>}
+          <Button type="submit" isLoading={isLoading}>
+            Sign Up
+          </Button>
+          <div className={styles.footer}>
+            Already have an account?{' '}
+            <Link href="/login" className={styles.link}>
+              Log in
+            </Link>
+          </div>
+        </form>
+      )}
+    </div>
   );
 }
