@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styles from './ForgotPasswordForm.module.css';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -51,6 +52,11 @@ export function ForgotPasswordForm() {
     return (
       <div className={styles.success}>
         <p>If an account exists, a password reset link has been sent to your email.</p>
+        <div className={styles.footer}>
+          <Link href="/login" className={styles.link}>
+            Back to Log in
+          </Link>
+        </div>
       </div>
     );
   }
@@ -69,6 +75,11 @@ export function ForgotPasswordForm() {
       <Button type="submit" isLoading={isLoading}>
         Reset Password
       </Button>
+      <div className={styles.footer}>
+        <Link href="/login" className={styles.link}>
+          Back to Log in
+        </Link>
+      </div>
     </form>
   );
 }

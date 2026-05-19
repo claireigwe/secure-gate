@@ -53,6 +53,7 @@ export async function resetPasswordAction(token: string, data: unknown) {
 
     return { ok: true };
   } catch (error) {
+    console.error('Reset Password Action Error:', error);
     return {
       ok: false,
       error: {

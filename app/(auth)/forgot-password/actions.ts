@@ -5,6 +5,8 @@ import { generatePasswordResetToken } from '@/lib/tokens';
 import { sendPasswordResetEmail } from '@/lib/mail';
 import { z } from 'zod';
 import { ForgotPasswordSchema } from '@/lib/validations';
+import { headers } from 'next/headers';
+import { rateLimit } from '@/lib/rate-limit';
 
 export async function forgotPasswordAction(data: unknown) {
   const parsed = ForgotPasswordSchema.safeParse(data);
@@ -15,6 +17,19 @@ export async function forgotPasswordAction(data: unknown) {
       error: {
         code: 'INVALID_INPUT',
         message: 'Invalid email address',
+      },
+    };
+  }
+
+  // Rate Limiting: 5 attempts per IP in 10 minutes
+  const ip = headers().get('x-forwarded-for') || '127.0.0.1';
+  const limitCheck = await rateLimit(`forgot-password:${ip}`);
+  if (!limitCheck.success) {
+    return {
+      ok: false,
+      error: {
+        code: 'RATE_LIMIT_EXCEEDED',
+        message: 'Too many requests. Please try again later.',
       },
     };
   }
@@ -34,6 +49,7 @@ export async function forgotPasswordAction(data: unknown) {
     // Always return success even if email doesn't exist (prevent enumeration)
     return { ok: true };
   } catch (error) {
+    console.error('Forgot Password Action Error:', error);
     return {
       ok: false,
       error: {

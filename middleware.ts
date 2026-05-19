@@ -17,10 +17,10 @@ export async function middleware(request: NextRequest) {
     if (!token) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
-    // TODO: Verify email verification state
-    // if (!token.emailVerified) {
-    //   return NextResponse.redirect(new URL('/verify-email', request.url));
-    // }
+    // Verify email verification state
+    if (!token.emailVerified) {
+      return NextResponse.redirect(new URL('/verify-email', request.url));
+    }
   }
 
   return NextResponse.next();

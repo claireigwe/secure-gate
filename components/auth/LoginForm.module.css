@@ -14,3 +14,34 @@
   padding: 8px 12px;
   border-radius: var(--radius-sm, 4px);
 }
+
+.passwordFieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.forgotPasswordContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 16px;
+  font-family: var(--body-small-font-family);
+  font-size: var(--body-small-font-size);
+  color: var(--color-on-surface-variant);
+}
+
+.link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}

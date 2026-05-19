@@ -3,6 +3,7 @@
 import React from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import styles from './LoginForm.module.css';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -66,18 +67,31 @@ export function LoginForm() {
         error={fieldErrors.email}
         required
       />
-      <Input
-        name="password"
-        type="password"
-        label="Password"
-        placeholder="Enter your password"
-        error={fieldErrors.password}
-        required
-      />
+      <div className={styles.passwordFieldContainer}>
+        <Input
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Enter your password"
+          error={fieldErrors.password}
+          required
+        />
+        <div className={styles.forgotPasswordContainer}>
+          <Link href="/forgot-password" className={styles.link}>
+            Forgot password?
+          </Link>
+        </div>
+      </div>
       {error && <div className={styles.error}>{error}</div>}
       <Button type="submit" isLoading={isLoading}>
         Log In
       </Button>
+      <div className={styles.footer}>
+        Don't have an account?{' '}
+        <Link href="/signup" className={styles.link}>
+          Sign up
+        </Link>
+      </div>
     </form>
   );
 }
