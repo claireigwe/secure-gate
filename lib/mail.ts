@@ -29,7 +29,7 @@ function emailTemplate(title: string, body: string, ctaText: string, ctaLink: st
                 ${body}
               </p>
               <p style="margin: 0 0 24px; font-size: 13px; line-height: 1.4; color: #6b6d70; font-family: 'Instrument Sans', sans-serif;">
-                This link expires in 24 hours.
+                This link expires in 1 hour.
               </p>
               <table role="presentation" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
                 <tr>

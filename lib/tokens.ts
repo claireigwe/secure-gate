@@ -3,7 +3,7 @@ import { prisma } from './prisma';
 
 export async function generateVerificationToken(email: string) {
   const token = crypto.randomBytes(32).toString('hex');
-  const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+  const expires = new Date(Date.now() + 1 * 60 * 60 * 1000); // 1 hour
 
   const existingToken = await prisma.verificationToken.findFirst({
     where: { identifier: email },
