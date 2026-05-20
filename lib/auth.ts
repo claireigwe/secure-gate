@@ -2,6 +2,14 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { prisma } from './prisma';
+import { rateLimit } from './rate-limit';
+
+function getIp(req: { headers?: Headers | Record<string, string> }): string {
+  if (req.headers instanceof Headers) {
+    return req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || '127.0.0.1';
+  }
+  return '127.0.0.1';
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,9 +19,15 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials');
+        }
+
+        const ip = getIp(req);
+        const limitCheck = await rateLimit(`login:${ip}`);
+        if (!limitCheck.success) {
+          throw new Error('Too many requests. Please try again later.');
         }
 
         const user = await prisma.user.findUnique({
@@ -29,11 +43,6 @@ export const authOptions: NextAuthOptions = {
         if (!isPasswordValid) {
           throw new Error('Invalid credentials');
         }
-
-        // Optional: Block unverified users from logging in (depends on exact product specs, but safe to do here)
-        // If they must verify before dashboard access, we can return the user and let middleware block,
-        // or block here. The PRD says "Unverified users must NEVER access protected routes" and middleware checks it.
-        // Returning the user here is fine if they are verified or unverified.
 
         return {
           id: user.id,
