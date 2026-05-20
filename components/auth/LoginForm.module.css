@@ -44,7 +44,7 @@
   text-align: center;
   margin-top: 16px;
   font-family: var(--body-small-font-family);
-  font-size: var(--body-small-font-size);
+  font-size: 14px;
   color: var(--color-on-surface-variant);
 }
 
