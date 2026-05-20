@@ -6,7 +6,7 @@
   /* Typography Tokens */
   --display-large-font-size: 64px;
   --display-large-text-decoration: none;
-  --display-large-font-family: Sora, sans-serif;
+  --display-large-font-family: 'Instrument Sans', sans-serif;
   --display-large-font-weight: 400;
   --display-large-font-style: normal;
   --display-large-font-stretch: normal;
@@ -17,7 +17,7 @@
   --display-large-text-case: none;
   --display-medium-font-size: 48px;
   --display-medium-text-decoration: none;
-  --display-medium-font-family: Sora, sans-serif;
+  --display-medium-font-family: 'Instrument Sans', sans-serif;
   --display-medium-font-weight: 400;
   --display-medium-font-style: normal;
   --display-medium-font-stretch: normal;
@@ -28,7 +28,7 @@
   --display-medium-text-case: none;
   --display-small-font-size: 32px;
   --display-small-text-decoration: none;
-  --display-small-font-family: Sora, sans-serif;
+  --display-small-font-family: 'Instrument Sans', sans-serif;
   --display-small-font-weight: 400;
   --display-small-font-style: normal;
   --display-small-font-stretch: normal;
@@ -39,7 +39,7 @@
   --display-small-text-case: none;
   --headline-large-font-size: 40px;
   --headline-large-text-decoration: none;
-  --headline-large-font-family: Sora, sans-serif;
+  --headline-large-font-family: 'Instrument Sans', sans-serif;
   --headline-large-font-weight: 600;
   --headline-large-font-style: normal;
   --headline-large-font-stretch: normal;
@@ -50,7 +50,7 @@
   --headline-large-text-case: none;
   --headline-medium-font-size: 32px;
   --headline-medium-text-decoration: none;
-  --headline-medium-font-family: Sora, sans-serif;
+  --headline-medium-font-family: 'Instrument Sans', sans-serif;
   --headline-medium-font-weight: 600;
   --headline-medium-font-style: normal;
   --headline-medium-font-stretch: normal;
@@ -61,7 +61,7 @@
   --headline-medium-text-case: none;
   --headline-small-font-size: 24px;
   --headline-small-text-decoration: none;
-  --headline-small-font-family: Sora, sans-serif;
+  --headline-small-font-family: 'Instrument Sans', sans-serif;
   --headline-small-font-weight: 400;
   --headline-small-font-style: normal;
   --headline-small-font-stretch: normal;
@@ -72,7 +72,7 @@
   --headline-small-text-case: none;
   --title-large-font-size: 24px;
   --title-large-text-decoration: none;
-  --title-large-font-family: Sora, sans-serif;
+  --title-large-font-family: 'Instrument Sans', sans-serif;
   --title-large-font-weight: 400;
   --title-large-font-style: normal;
   --title-large-font-stretch: normal;
@@ -83,7 +83,7 @@
   --title-large-text-case: none;
   --title-medium-font-size: 16px;
   --title-medium-text-decoration: none;
-  --title-medium-font-family: Sora, sans-serif;
+  --title-medium-font-family: 'Instrument Sans', sans-serif;
   --title-medium-font-weight: 400;
   --title-medium-font-style: normal;
   --title-medium-font-stretch: normal;
@@ -94,7 +94,7 @@
   --title-medium-text-case: none;
   --title-small-font-size: 14px;
   --title-small-text-decoration: none;
-  --title-small-font-family: Sora, sans-serif;
+  --title-small-font-family: 'Instrument Sans', sans-serif;
   --title-small-font-weight: 400;
   --title-small-font-style: normal;
   --title-small-font-stretch: normal;
@@ -105,7 +105,7 @@
   --title-small-text-case: none;
   --body-large-font-size: 1rem;
   --body-large-text-decoration: none;
-  --body-large-font-family: Host Grotesk, sans-serif;
+  --body-large-font-family: 'Instrument Sans', sans-serif;
   --body-large-font-weight: 400;
   --body-large-font-style: normal;
   --body-large-font-stretch: normal;
@@ -116,7 +116,7 @@
   --body-large-text-case: none;
   --body-medium-font-size: 0.875rem;
   --body-medium-text-decoration: none;
-  --body-medium-font-family: Host Grotesk, sans-serif;
+  --body-medium-font-family: 'Instrument Sans', sans-serif;
   --body-medium-font-weight: 400;
   --body-medium-font-style: normal;
   --body-medium-font-stretch: normal;
@@ -127,7 +127,7 @@
   --body-medium-text-case: none;
   --body-small-font-size: 0.75rem;
   --body-small-text-decoration: none;
-  --body-small-font-family: Host Grotesk, sans-serif;
+  --body-small-font-family: 'Instrument Sans', sans-serif;
   --body-small-font-weight: 400;
   --body-small-font-style: normal;
   --body-small-font-stretch: normal;
@@ -138,7 +138,7 @@
   --body-small-text-case: none;
   --label-large-font-size: 1rem;
   --label-large-text-decoration: none;
-  --label-large-font-family: Host Grotesk, sans-serif;
+  --label-large-font-family: 'Instrument Sans', sans-serif;
   --label-large-font-weight: 400;
   --label-large-font-style: normal;
   --label-large-font-stretch: normal;
@@ -149,7 +149,7 @@
   --label-large-text-case: none;
   --label-medium-font-size: 0.875rem;
   --label-medium-text-decoration: none;
-  --label-medium-font-family: Host Grotesk, sans-serif;
+  --label-medium-font-family: 'Instrument Sans', sans-serif;
   --label-medium-font-weight: 400;
   --label-medium-font-style: normal;
   --label-medium-font-stretch: normal;
@@ -160,7 +160,7 @@
   --label-medium-text-case: none;
   --label-small-font-size: 0.75rem;
   --label-small-text-decoration: none;
-  --label-small-font-family: Host Grotesk, sans-serif;
+  --label-small-font-family: 'Instrument Sans', sans-serif;
   --label-small-font-weight: 600;
   --label-small-font-style: normal;
   --label-small-font-stretch: normal;

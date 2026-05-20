@@ -99,62 +99,66 @@ export function SignupForm() {
         </div>
       ) : (
         <form className={styles.root} onSubmit={handleSubmit} noValidate>
-          <Input
-            name="name"
-            type="text"
-            label="Full Name"
-            placeholder="John Doe"
-            error={fieldErrors.name}
-            required
-          />
-          <Input
-            name="email"
-            type="email"
-            label="Email address"
-            placeholder="Enter your email"
-            error={fieldErrors.email}
-            required
-          />
-          <div className={styles.passwordFieldContainer}>
+          <div className={styles.controls}>
             <Input
-              name="password"
-              type="password"
-              label="Password"
-              placeholder="Create a password"
-              error={fieldErrors.password}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="name"
+              type="text"
+              label="Full Name"
+              placeholder="John Doe"
+              error={fieldErrors.name}
               required
             />
-            {password && (
-              <div className={styles.strengthContainer}>
-                <div className={styles.strengthLabel}>
-                  <span>Password strength</span>
-                  <span className={styles.strengthValue} style={{ color: strength.color }}>
-                    {strength.label}
-                  </span>
+            <Input
+              name="email"
+              type="email"
+              label="Email address"
+              placeholder="Enter your email"
+              error={fieldErrors.email}
+              required
+            />
+            <div className={styles.passwordFieldContainer}>
+              <Input
+                name="password"
+                type="password"
+                label="Password"
+                placeholder="Create a password"
+                error={fieldErrors.password}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {password && (
+                <div className={styles.strengthContainer}>
+                  <div className={styles.strengthLabel}>
+                    <span>Password strength</span>
+                    <span className={styles.strengthValue} style={{ color: strength.color }}>
+                      {strength.label}
+                    </span>
+                  </div>
+                  <div className={styles.strengthBars}>
+                    <div 
+                      className={styles.strengthBar} 
+                      style={{ backgroundColor: strength.score >= 1 ? strength.color : undefined }}
+                    />
+                    <div 
+                      className={styles.strengthBar} 
+                      style={{ backgroundColor: strength.score >= 2 ? strength.color : undefined }}
+                    />
+                    <div 
+                      className={styles.strengthBar} 
+                      style={{ backgroundColor: strength.score >= 3 ? strength.color : undefined }}
+                    />
+                  </div>
                 </div>
-                <div className={styles.strengthBars}>
-                  <div 
-                    className={styles.strengthBar} 
-                    style={{ backgroundColor: strength.score >= 1 ? strength.color : undefined }}
-                  />
-                  <div 
-                    className={styles.strengthBar} 
-                    style={{ backgroundColor: strength.score >= 2 ? strength.color : undefined }}
-                  />
-                  <div 
-                    className={styles.strengthBar} 
-                    style={{ backgroundColor: strength.score >= 3 ? strength.color : undefined }}
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
+            {error && <div className={styles.error}>{error}</div>}
           </div>
-          {error && <div className={styles.error}>{error}</div>}
-          <Button type="submit" isLoading={isLoading}>
-            Sign Up
-          </Button>
+          <div className={styles.cta}>
+            <Button type="submit" isLoading={isLoading} className={styles.fullWidthButton}>
+              Sign Up
+            </Button>
+          </div>
           <div className={styles.footer}>
             Already have an account?{' '}
             <Link href="/login" className={styles.link}>

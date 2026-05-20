@@ -59,33 +59,37 @@ export function LoginForm() {
 
   return (
     <form className={styles.root} onSubmit={handleSubmit} noValidate>
-      <Input
-        name="email"
-        type="email"
-        label="Email address"
-        placeholder="Enter your email"
-        error={fieldErrors.email}
-        required
-      />
-      <div className={styles.passwordFieldContainer}>
+      <div className={styles.controls}>
         <Input
-          name="password"
-          type="password"
-          label="Password"
-          placeholder="Enter your password"
-          error={fieldErrors.password}
+          name="email"
+          type="email"
+          label="Email address"
+          placeholder="Enter your email"
+          error={fieldErrors.email}
           required
         />
-        <div className={styles.forgotPasswordContainer}>
-          <Link href="/forgot-password" className={styles.link}>
-            Forgot password?
-          </Link>
+        <div className={styles.passwordFieldContainer}>
+          <Input
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="Enter your password"
+            error={fieldErrors.password}
+            required
+          />
+          <div className={styles.forgotPasswordContainer}>
+            <Link href="/forgot-password" className={styles.link}>
+              Forgot password?
+            </Link>
+          </div>
         </div>
+        {error && <div className={styles.error}>{error}</div>}
       </div>
-      {error && <div className={styles.error}>{error}</div>}
-      <Button type="submit" isLoading={isLoading}>
-        Log In
-      </Button>
+      <div className={styles.cta}>
+        <Button type="submit" isLoading={isLoading} className={styles.fullWidthButton}>
+          Log In
+        </Button>
+      </div>
       <div className={styles.footer}>
         Don't have an account?{' '}
         <Link href="/signup" className={styles.link}>

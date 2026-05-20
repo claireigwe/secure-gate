@@ -1,25 +1,26 @@
-import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail';
 
-let resend: Resend | undefined;
-
-try {
-  resend = new Resend(process.env.RESEND_API_KEY);
-} catch {
-  console.error('Failed to initialize Resend client');
+const apiKey = process.env.SENDGRID_API_KEY;
+if (apiKey) {
+  sgMail.setApiKey(apiKey);
+} else {
+  console.warn('SENDGRID_API_KEY is not set — emails will be logged to console');
 }
+
+const fromEmail = process.env.SENDGRID_FROM_EMAIL || 'somiigwe@gmail.com';
 
 export async function sendVerificationEmail(email: string, token: string) {
   const confirmLink = `${process.env.NEXTAUTH_URL}/verify-email/${token}`;
 
-  if (!resend) {
+  if (!apiKey) {
     console.log(`[DEV] Verification link for ${email}: ${confirmLink}`);
     return;
   }
 
   try {
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
+    await sgMail.send({
       to: email,
+      from: fromEmail,
       subject: 'Confirm your email',
       html: `<p>Click <a href="${confirmLink}">here</a> to confirm your email.</p>`,
     });
@@ -32,15 +33,15 @@ export async function sendVerificationEmail(email: string, token: string) {
 export async function sendPasswordResetEmail(email: string, token: string) {
   const resetLink = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`;
 
-  if (!resend) {
+  if (!apiKey) {
     console.log(`[DEV] Password reset link for ${email}: ${resetLink}`);
     return;
   }
 
   try {
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
+    await sgMail.send({
       to: email,
+      from: fromEmail,
       subject: 'Reset your password',
       html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`,
     });
